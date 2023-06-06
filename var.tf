@@ -2,6 +2,8 @@
 #variable "env" {}
 #variable "subnets" {}
 
+variable "name" {}
+variable "env" {}
 variable "cluster_id" {}
 variable "engine" {}
 variable "node_type" {}
