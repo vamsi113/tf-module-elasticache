@@ -1,26 +1,20 @@
 resource "aws_elasticache_cluster" "main" {
-  for_each             = var.elasticache
-  cluster_id           = "${var.env}-${each.key}-elasticache"
-  engine               = each.value.engine
-  node_type            = each.value.node_type
-  num_cache_nodes      = each.value.num_cache_nodes
-  parameter_group_name = "default.redis3.2"
-  engine_version       = "3.2.10"
-  port                 = 6379
+  cluster_id           = "${var.env}-${var.name}-elasticache"
+  engine               = var.engine
+  node_type            = var.node_type
+  num_cache_nodes      = var.num_cache_nodes
+  parameter_group_name = aws_elasticache_parameter_group.default.name
+  engine_version       = var.engine_version
+ # port                 = var.port
 }
 
 resource "aws_elasticache_parameter_group" "default" {
-  for_each             = var.elasticache
-  name   = "cache-params"
-  family = "redis2.8"
+  name   = "${var.env}-${var.name}-elasticache"
+  family = "redis6.x"
 
-  parameter {
-    name  = "activerehashing"
-    value = "yes"
-  }
+}
 
-  parameter {
-    name  = "min-slaves-to-write"
-    value = "2"
-  }
+resource "aws_elasticache_subnet_group" "default" {
+  name       = "${var.env}-${var.name}-elasticache"
+  subnet_ids = var.subnets
 }
