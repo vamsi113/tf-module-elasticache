@@ -10,4 +10,5 @@ variable "node_type" {}
 variable "num_cache_nodes" {}
 variable "subnets" {}
 variable "engine_version" {}
-#variable "port" {}
+variable "vpc_id" {}
+variable "vpc_cidr" {}

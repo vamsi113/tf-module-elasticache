@@ -5,7 +5,7 @@ resource "aws_elasticache_cluster" "main" {
   num_cache_nodes      = var.num_cache_nodes
   parameter_group_name = aws_elasticache_parameter_group.default.name
   engine_version       = var.engine_version
- # port                 = var.port
+  security_group_ids = [aws_security_group.sg.id]
 }
 
 resource "aws_elasticache_parameter_group" "default" {
